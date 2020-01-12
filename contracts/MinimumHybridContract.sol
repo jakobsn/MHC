@@ -55,4 +55,14 @@ contract MinimalHybridContract {
         return;
     }
 
+    function read_contracts(address actor) external {
+        // TODO
+        return;
+    }
+
+    function read_contract_transactions(uint contract_id) external {
+        // TODO
+        return;
+    }
+
 }
