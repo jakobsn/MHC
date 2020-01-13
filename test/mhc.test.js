@@ -11,7 +11,8 @@ contract("MinimalHybridContract", (accounts) => {
     })
 
     it("Store legal contract representation", async () => { 
-        let contract_tx = await mhc.create_contract(accounts[0], accounts[1], "Contract Title", "HASHDASDASDSSAD", "SHA256");
+        let contract_tx = await mhc.create_contract(accounts[0], accounts[1], 
+            "Contract Title", "d04b98f48e8f8bcc15c6ae5ac050801cd6dcfd428fb5f9e65c4e16e7807340fa", "SHA256");
         contract_id = contract_tx.logs[0]["args"].contract_id;
         console.log("Legal contract id:", contract_id.toString())
         expect(contract_id.toString()).to.equal('0')
