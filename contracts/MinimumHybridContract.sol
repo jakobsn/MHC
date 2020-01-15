@@ -27,15 +27,15 @@ contract MinimalHybridContract {
     // Log event for contract transaction
     event ContractTransaction (
         uint contract_id,
-        string transaction_hash
+        address sender,
+        address receiver,
+        uint value
     );
 
     // Keep all contract representations in a list
     ContractStruct[] contracts;
     // Map actors to contracts
     mapping (address => uint[]) private contract_actor;
-    // Map contract to transactions
-    mapping (uint => string[]) private contract_transaction;
 
     /**
     * @dev Create a contract struct and store it on chain. Anyone can create a contract,
@@ -52,8 +52,10 @@ contract MinimalHybridContract {
     * }
     */
     function create_contract(address principal, address agent, string calldata title,
-            string calldata contract_hash, string calldata contract_method) external
+        string calldata contract_hash, string calldata contract_method) external
         returns (uint contract_id) {
+        require(msg.sender == principal || msg.sender == agent,
+            "Revert, can not create contract for someone else");
         // Make a ContractStruct instance contract_struct
         ContractStruct memory contract_struct;
         contract_struct.principal = principal;
@@ -73,16 +75,42 @@ contract MinimalHybridContract {
 
     /**
     * @dev Record a reference between transactions to their corresponding contract
-    * #TODO: Further implementations should allow only the sender to record their transaction.
-    * It should possible to record a transaction to no more than one contract id
     * @param contract_id the id of the relevant contract struct
-    * @param transaction_hash the hash of a transaction related to the contract id
+    * @param value the value to send in wei
+    * @param multiplier a number to multiply the value, used as a Workaround
+    * @param receiver address of the receiving user
     */
-    function contract_transfer(uint contract_id, string calldata transaction_hash) external {
+    function create_contract_transfer(uint contract_id, uint value, uint multiplier,
+        address payable receiver) external payable {
         // Store the contract id and transaction reference
-        contract_transaction[contract_id].push(transaction_hash);
+        require(read_is_actor(contract_id, msg.sender) || read_is_actor(contract_id, receiver),
+            "Revert, both sender and receiver are not actors in contract");
+        // Send funds through the MHC smart contract
+        address(receiver).transfer(value*multiplier);
         // Record the event of a contract transaction
-        emit ContractTransaction(contract_id, transaction_hash);
+        emit ContractTransaction(contract_id, msg.sender, receiver, value*multiplier);
+    }
+
+    /**
+    * @dev Get attributes of a specific legal contract representation
+    * @param contract_id the id of the relevant contract struct
+    * @return {
+    *   "address": "principal",
+    *   "address": "agent",
+    *   "string": "title" overhead title of the legal contract,
+    *   "string": "contract_hash" hash generated from the legal contract,
+    *   "string": "contract_method" the hashing algorithm used to generate the contract_hash
+    * }
+    */
+    function read_contract(uint contract_id) public view
+        returns (address principal, address agent, string memory title,
+            string memory contract_hash, string memory contract_method) {
+        ContractStruct memory contract_struct = contracts[contract_id];
+        principal = contract_struct.principal;
+        agent = contract_struct.agent;
+        title = contract_struct.title;
+        contract_hash = contract_struct.contract_hash;
+        contract_method = contract_struct.contract_method;
     }
 
     /**
@@ -92,21 +120,27 @@ contract MinimalHybridContract {
     *   "uint[]": "contract_ids"
     * }
     */
-    function read_contract_ids(address actor) external view
+    function read_contract_ids(address actor) public view
         returns(uint[] memory contract_ids) {
         return contract_actor[actor];
     }
 
     /**
-    * @dev Get the transactions related to a contract
-    * @param contract_id id of the contract
+    * @dev Get the ids of the contracts related to an actor
+    * @param contract_id the id of the relevant contract struct
+    * @param actor address of the actor
     * @return {
-    *   "string[]": "transactions"
+    *   "bool": "is_actor" true if actor is pricipal or agent in contract
     * }
     */
-    function read_contract_transactions(uint contract_id) external view
-        returns(string[] memory transactions) {
-        return contract_transaction[contract_id];
+    function read_is_actor(uint contract_id, address actor) public view
+        returns(bool is_actor){
+        is_actor = false;
+        uint[] memory contract_ids = read_contract_ids(actor);
+        for(uint i = 0; i < contract_ids.length; i++){
+            if(contract_ids[i] == contract_id){
+                is_actor = true;
+            }
+        }
     }
-
 }
