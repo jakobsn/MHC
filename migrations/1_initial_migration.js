@@ -1,7 +1,7 @@
 const Migrations = artifacts.require("Migrations");
-const MinimalHybridContract = artifacts.require("MinimalHybridContract");
+const MinimumHybridContract = artifacts.require("MinimumHybridContract");
 
 module.exports = function(deployer) {
   deployer.deploy(Migrations);
-  deployer.deploy(MinimalHybridContract);
+  deployer.deploy(MinimumHybridContract);
 };

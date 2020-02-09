@@ -1,6 +1,6 @@
-const MinimalHybridContract = artifacts.require("MinimalHybridContract")
+const MinimalHybridContract = artifacts.require("MinimumHybridContract")
 
-contract("MinimalHybridContract", (accounts) => { 
+contract("MinimumHybridContract", (accounts) => { 
 
     let mhc;
     let contract_id;

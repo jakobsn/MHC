@@ -2,12 +2,12 @@ pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
 /**
- * @title Minimal Hybrid Contract
- * @dev Proof of concept implementation of the proposed MHC
+ * @title Minimum Hybrid Contract
+ * @dev Proof of concept implementation of the proposed MHC. Available at github: https://github.com/jakobsn/MHC
  * @author Jakob Svennevik Notland
  */
 
-contract MinimalHybridContract {
+contract MinimumHybridContract {
 
     // Smart contract representation of a legal contract
     struct ContractStruct {
@@ -33,7 +33,7 @@ contract MinimalHybridContract {
     );
 
     // Keep all contract representations in a list
-    ContractStruct[] contracts;
+    ContractStruct[] private contracts;
     // Map actors to contracts
     mapping (address => uint[]) private contract_actor;
 
@@ -50,7 +50,7 @@ contract MinimalHybridContract {
     * @return {
     *   "contract_id": "The id of the published contract_strct"
     * }
-    */
+     */
     function create_contract(address principal, address agent, string calldata title,
         string calldata contract_hash, string calldata contract_method) external
         returns (uint contract_id) {
@@ -79,7 +79,7 @@ contract MinimalHybridContract {
     * @param value the value to send in wei
     * @param multiplier a number to multiply the value, used as a Workaround
     * @param receiver address of the receiving user
-    */
+     */
     function create_contract_transfer(uint contract_id, uint value, uint multiplier,
         address payable receiver) external payable {
         // Store the contract id and transaction reference
@@ -95,16 +95,17 @@ contract MinimalHybridContract {
     * @dev Get attributes of a specific legal contract representation
     * @param contract_id the id of the relevant contract struct
     * @return {
-    *   "address": "principal",
-    *   "address": "agent",
-    *   "string": "title" overhead title of the legal contract,
-    *   "string": "contract_hash" hash generated from the legal contract,
-    *   "string": "contract_method" the hashing algorithm used to generate the contract_hash
+    *   "principal": Address
+    *   "agent": Address
+    *   "title": Overhead title of the legal contract
+    *   "contract_hash": Hash generated from the legal contract
+    *   "contract_method": The hashing algorithm used to generate the contract_hash
     * }
-    */
+     */
     function read_contract(uint contract_id) public view
         returns (address principal, address agent, string memory title,
             string memory contract_hash, string memory contract_method) {
+        // Fetch the stored contract struct from the contracts list
         ContractStruct memory contract_struct = contracts[contract_id];
         principal = contract_struct.principal;
         agent = contract_struct.agent;
@@ -117,9 +118,9 @@ contract MinimalHybridContract {
     * @dev Get the ids of the contracts related to an actor
     * @param actor address of the actor
     * @return {
-    *   "uint[]": "contract_ids"
+    *   "contract_ids": A list of contract_ids involving the actor
     * }
-    */
+     */
     function read_contract_ids(address actor) public view
         returns(uint[] memory contract_ids) {
         return contract_actor[actor];
@@ -130,11 +131,11 @@ contract MinimalHybridContract {
     * @param contract_id the id of the relevant contract struct
     * @param actor address of the actor
     * @return {
-    *   "bool": "is_actor" true if actor is pricipal or agent in contract
+    *   "is_actor": True if actor is pricipal or agent in contract
     * }
-    */
+     */
     function read_is_actor(uint contract_id, address actor) public view
-        returns(bool is_actor){
+        returns(bool is_actor) {
         is_actor = false;
         uint[] memory contract_ids = read_contract_ids(actor);
         for(uint i = 0; i < contract_ids.length; i++){
