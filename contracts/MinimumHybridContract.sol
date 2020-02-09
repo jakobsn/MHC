@@ -1,11 +1,11 @@
 pragma solidity ^0.5.0;
-pragma experimental ABIEncoderV2;
 
 /**
  * @title Minimum Hybrid Contract
  * @dev Proof of concept implementation of the proposed MHC. Available at github: https://github.com/jakobsn/MHC
  * @author Jakob Svennevik Notland
  */
+
 
 contract MinimumHybridContract {
 
@@ -14,13 +14,33 @@ contract MinimumHybridContract {
         address principal;
         address agent;
         string title;
-        string contract_hash;
+        bytes contract_hash;
         string contract_method;
+        bool signed;
     }
 
     // Log event for contract creation
     event CreateContract (
-        address creator,
+        uint contract_id
+    );
+
+    // Log event for signing a contract
+    event SignContract (
+        uint contract_id
+    );
+
+    // Log event when both parties have signed a contract
+    event ActivateContract (
+        uint contract_id
+    );
+
+    // Log event for unsigning a contract
+    event UnSignContract (
+        uint contract_id
+    );
+
+    // Log event when both parties have unsigned a contract
+    event DeActivateContract (
         uint contract_id
     );
 
@@ -36,12 +56,11 @@ contract MinimumHybridContract {
     ContractStruct[] private contracts;
     // Map actors to contracts
     mapping (address => uint[]) private contract_actor;
+    // Map contract to participants and their signing status
+    mapping (uint => mapping (address => bool)) contract_actor_signed;
 
     /**
-    * @dev Create a contract struct and store it on chain. Anyone can create a contract,
-    * #TODO: further implementation should use multisignatures to ensure better security.
-    * This would be done by making it possible to make a contract struct only when both
-    * the principal and the agent signs for it.
+    * @dev Create a contract struct and store it on chain.
     * @param principal address of the participating principal
     * @param agent address of the participating agent
     * @param title overhead title of the legal contract
@@ -52,10 +71,10 @@ contract MinimumHybridContract {
     * }
      */
     function create_contract(address principal, address agent, string calldata title,
-        string calldata contract_hash, string calldata contract_method) external
+        bytes calldata contract_hash, string calldata contract_method) external
         returns (uint contract_id) {
         require(msg.sender == principal || msg.sender == agent,
-            "Revert, can not create contract for someone else");
+            "Revert, only contract participants can create a contract");
         // Make a ContractStruct instance contract_struct
         ContractStruct memory contract_struct;
         contract_struct.principal = principal;
@@ -63,14 +82,35 @@ contract MinimumHybridContract {
         contract_struct.title = title;
         contract_struct.contract_hash = contract_hash;
         contract_struct.contract_method = contract_method;
+        contract_struct.signed = false;
         // Push the contract_struct to the contracts list
         contract_id = contracts.push(contract_struct) - 1;
         // Map the actors to the contract_struct
         contract_actor[principal].push(contract_id);
         contract_actor[agent].push(contract_id);
+        // Sign the contract
+        contract_actor_signed[contract_id][msg.sender] = true;
         // Record the contract creator and the contract id to the blockchain event log
-        emit CreateContract(msg.sender, contract_id);
+        emit CreateContract(contract_id);
         return contract_id;
+    }
+
+    /**
+    * @dev Sign a contract. If both parties have signed, the contract activates
+    * @param contract_id the id of the relevant contract struct
+     */
+    function create_contract_signature(uint contract_id) external {
+        require(msg.sender == contracts[contract_id].agent || msg.sender == contracts[contract_id].principal,
+            "Revert, only contract actors can sign a contract");
+        // Record the actors signature
+        contract_actor_signed[contract_id][msg.sender] = true;
+        emit SignContract(contract_id);
+        if (contract_actor_signed[contract_id][contracts[contract_id].principal] &&
+            contract_actor_signed[contract_id][contracts[contract_id].agent]){
+            // Record activation of the contract if both parties have signed
+            contracts[contract_id].signed = true;
+            emit ActivateContract(contract_id);
+        }
     }
 
     /**
@@ -92,6 +132,24 @@ contract MinimumHybridContract {
     }
 
     /**
+    * @dev Unsign a contract. If both parties have unsigned, the contract deactivates
+    * @param contract_id the id of the relevant contract struct
+     */
+    function update_contract_unsign(uint contract_id) external {
+        require(msg.sender == contracts[contract_id].principal || msg.sender == contracts[contract_id].agent,
+            "Revert, only contract participants can unsign");
+        // Record the actors act of unsigning from the contract
+        contract_actor_signed[contract_id][msg.sender] = false;
+        emit UnSignContract(contract_id);
+        if (!contract_actor_signed[contract_id][contracts[contract_id].principal] &&
+            !contract_actor_signed[contract_id][contracts[contract_id].agent]){
+            // Record deactivation of the contract if both parties have unsigned
+            contracts[contract_id].signed = false;
+            emit DeActivateContract(contract_id);
+        }
+    }
+
+    /**
     * @dev Get attributes of a specific legal contract representation
     * @param contract_id the id of the relevant contract struct
     * @return {
@@ -104,7 +162,7 @@ contract MinimumHybridContract {
      */
     function read_contract(uint contract_id) public view
         returns (address principal, address agent, string memory title,
-            string memory contract_hash, string memory contract_method) {
+            bytes memory contract_hash, string memory contract_method, bool signed) {
         // Fetch the stored contract struct from the contracts list
         ContractStruct memory contract_struct = contracts[contract_id];
         principal = contract_struct.principal;
@@ -112,6 +170,7 @@ contract MinimumHybridContract {
         title = contract_struct.title;
         contract_hash = contract_struct.contract_hash;
         contract_method = contract_struct.contract_method;
+        signed = contract_struct.signed;
     }
 
     /**

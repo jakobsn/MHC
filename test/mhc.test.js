@@ -4,15 +4,15 @@ contract("MinimumHybridContract", (accounts) => {
 
     let mhc;
     let contract_id;
-    let legal_contract_hash = "d04b98f48e8f8bcc15c6ae5ac050801cd6dcfd428fb5f9e65c4e16e7807340fa"
+    let legal_contract_hash = "0x30755ed65396facf86c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400"
 
     it("Get the deployed smart contract", async () => { 
         mhc = await MinimalHybridContract.deployed()
     })
 
-    it("Store legal contract representation", async () => { 
+    it("Store legal contract representation", async () => {
         let contract_tx = await mhc.create_contract(accounts[6], accounts[0], 
-            "Contract Title", legal_contract_hash, "SHA256");
+            "Contract Title", legal_contract_hash, "SHA256", {from: accounts[6]});
         contract_id = contract_tx.logs[0]["args"].contract_id.toString();
         //console.log("New legal contract id:", contract_id)
         expect(contract_id.toString()).to.equal('0')
@@ -23,7 +23,15 @@ contract("MinimumHybridContract", (accounts) => {
         //console.log("Principal:", contract_struct.principal)
         //console.log("Agent:", contract_struct.agent)
         //console.log("Contract Hash:", contract_struct.contract_hash)
+        //console.log("Contract Signed:", contract_struct.signed)
         expect(contract_struct.contract_hash).to.equal(legal_contract_hash)
+        expect(!contract_struct.signed)
+    })
+
+    it("Should sign a contract", async () => {
+        await mhc.create_contract_signature(contract_id, {from: accounts[0]})
+        let contract_struct = await mhc.read_contract(contract_id)
+        expect(contract_struct.signed)
     })
 
     it("Send transaction through the contract", async () => { 
@@ -52,4 +60,14 @@ contract("MinimumHybridContract", (accounts) => {
         let is_actor = await mhc.read_is_actor(contract_id, accounts[6])
         expect(is_actor).to.equal(true)
     })
+
+    it("Should be able to unsign from a contract, and deactivate it upon agreement", async () => {
+        await mhc.update_contract_unsign(contract_id, {from: accounts[0]})
+        let contract_struct = await mhc.read_contract(contract_id)
+        expect(!contract_struct.signed)
+        await mhc.update_contract_unsign(contract_id, {from: accounts[6]})
+        contract_struct = await mhc.read_contract(contract_id)
+        expect(!contract_struct.signed)
+    })
+
 })
