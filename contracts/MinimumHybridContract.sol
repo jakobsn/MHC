@@ -49,7 +49,8 @@ contract MinimumHybridContract {
         uint contract_id,
         address sender,
         address receiver,
-        uint value
+        uint value,
+        bytes invoice_hash
     );
 
     // Keep all contract representations in a list
@@ -88,10 +89,11 @@ contract MinimumHybridContract {
         // Map the actors to the contract_struct
         contract_actor[principal].push(contract_id);
         contract_actor[agent].push(contract_id);
+        // Record the the contract id to the blockchain event log
+        emit CreateContract(contract_id);
         // Sign the contract
         contract_actor_signed[contract_id][msg.sender] = true;
-        // Record the contract creator and the contract id to the blockchain event log
-        emit CreateContract(contract_id);
+        emit SignContract(contract_id);
         return contract_id;
     }
 
@@ -120,7 +122,7 @@ contract MinimumHybridContract {
     * @param multiplier a number to multiply the value, used as a Workaround
     * @param receiver address of the receiving user
      */
-    function create_contract_transfer(uint contract_id, uint value, uint multiplier,
+    function create_contract_transfer(uint contract_id, bytes calldata invoice_hash, uint value, uint multiplier,
         address payable receiver) external payable {
         // Store the contract id and transaction reference
         require(read_is_actor(contract_id, msg.sender) || read_is_actor(contract_id, receiver),
@@ -128,7 +130,7 @@ contract MinimumHybridContract {
         // Send funds through the MHC smart contract
         address(receiver).transfer(value*multiplier);
         // Record the event of a contract transaction
-        emit ContractTransaction(contract_id, msg.sender, receiver, value*multiplier);
+        emit ContractTransaction(contract_id, msg.sender, receiver, value*multiplier, invoice_hash);
     }
 
     /**
