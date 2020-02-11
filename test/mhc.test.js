@@ -35,8 +35,9 @@ contract("MinimumHybridContract", (accounts) => {
     })
 
     it("Send transaction through the contract", async () => { 
-        const transfer_value = 1000000000000000
-        const multiplier = 100
+        const transfer_value = 10000000
+        // Gwei multiplier
+        const multiplier = 10**9
         let contract_transfer_tx = await mhc.create_contract_transfer(contract_id, "0x30755ed65396facf86c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400",
         transfer_value, multiplier, accounts[4], {from: accounts[6], value:transfer_value*multiplier})
         let contract_transfer_event = contract_transfer_tx.logs[0]["args"];
