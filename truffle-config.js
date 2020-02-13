@@ -17,8 +17,10 @@
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
  */
-
-// const HDWalletProvider = require('truffle-hdwallet-provider');
+require('dotenv').config();
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+var mnemonic = process.env["NEMONIC"];
+var tokenKey = process.env["ENDPOINT_KEY"];
 // const infuraKey = "fj4jll3k.....";
 //
 // const fs = require('fs');
@@ -44,10 +46,21 @@ module.exports = {
     //
     development: {
      host: "127.0.0.1",     // Localhost (default: none)
-     port: 8545,            // Standard Ethereum port (default: none)
+     port: 7545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
     },
-
+    rinkeby: {
+      iprovider: function() {
+        return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/1f1e738b596c49aa9185e53890056afc")
+      },
+      network_id: 1,
+    },
+    mainnet: {
+      provider: function() {
+        return new HDWalletProvider(mnemonic, "https://mainnet.infura.io/v3/78e52ece677e4655b196d13be8e58823")
+      },
+      network_id: 1
+    },
     // Another network with more advanced options...
     // advanced: {
       // port: 8777,             // Custom port
