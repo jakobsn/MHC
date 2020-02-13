@@ -1,0 +1,171 @@
+con.getPastEvents("allevents", {fromBlock: 0, toBlock: "latest"})
+[
+  {
+    address: '0xC0e817d3e3D79085175BCD83BD899A3d06BC1C8A',
+    blockHash: '0x28efc98712a4f39274115ec08e0751426098f73519610cadd7b9653a29fd1211',
+    blockNumber: 9475830,
+    logIndex: 41,
+    removed: false,
+    transactionHash: '0x1526d623fc0d89b2c0b3111e96cf9c765941ef59ac95a2c4a20d657b289242ac',
+    transactionIndex: 42,
+    id: 'log_aa3507f7',
+    returnValues: Result { '0': '0', contract_id: '0' },
+    event: 'CreateContract',
+    signature: '0x767f87bb74855514bc8bacaec5b30d8b68ef6af3ceaddba4facdfd4ace18f3d0',
+    raw: {
+      data: '0x0000000000000000000000000000000000000000000000000000000000000000',
+      topics: [Array]
+    },
+    args: Result { '0': [BN], __length__: 1, contract_id: [BN] }
+  },
+  {
+    address: '0xC0e817d3e3D79085175BCD83BD899A3d06BC1C8A',
+    blockHash: '0x28efc98712a4f39274115ec08e0751426098f73519610cadd7b9653a29fd1211',
+    blockNumber: 9475830,
+    logIndex: 42,
+    removed: false,
+    transactionHash: '0x1526d623fc0d89b2c0b3111e96cf9c765941ef59ac95a2c4a20d657b289242ac',
+    transactionIndex: 42,
+    id: 'log_321004a1',
+    returnValues: Result { '0': '0', contract_id: '0' },
+    event: 'SignContract',
+    signature: '0xfd7c2ef31a4bbcbc870d321dab0bc8ee2aff6962942acde355bb5de5fb989102',
+    raw: {
+      data: '0x0000000000000000000000000000000000000000000000000000000000000000',
+      topics: [Array]
+    },
+    args: Result { '0': [BN], __length__: 1, contract_id: [BN] }
+  },
+  {
+    address: '0xC0e817d3e3D79085175BCD83BD899A3d06BC1C8A',
+    blockHash: '0x696a543febf1581b1ecd15019b9bd6888472678169293f7397f2595851bf0f81',
+    blockNumber: 9475875,
+    logIndex: 14,
+    removed: false,
+    transactionHash: '0xa954cbb7763b4335279ad51b35e4e5317e7b2eb8b7280c0f3b89276e4a9db523',
+    transactionIndex: 16,
+    id: 'log_ca36afa4',
+    returnValues: Result { '0': '0', contract_id: '0' },
+    event: 'SignContract',
+    signature: '0xfd7c2ef31a4bbcbc870d321dab0bc8ee2aff6962942acde355bb5de5fb989102',
+    raw: {
+      data: '0x0000000000000000000000000000000000000000000000000000000000000000',
+      topics: [Array]
+    },
+    args: Result { '0': [BN], __length__: 1, contract_id: [BN] }
+  },
+  {
+    address: '0xC0e817d3e3D79085175BCD83BD899A3d06BC1C8A',
+    blockHash: '0x696a543febf1581b1ecd15019b9bd6888472678169293f7397f2595851bf0f81',
+    blockNumber: 9475875,
+    logIndex: 15,
+    removed: false,
+    transactionHash: '0xa954cbb7763b4335279ad51b35e4e5317e7b2eb8b7280c0f3b89276e4a9db523',
+    transactionIndex: 16,
+    id: 'log_e60541f7',
+    returnValues: Result { '0': '0', contract_id: '0' },
+    event: 'ActivateContract',
+    signature: '0xc2bfec35cd99a0a487464b7dd7ea16fbae442d0a19a61c40a7adb6b34647937c',
+    raw: {
+      data: '0x0000000000000000000000000000000000000000000000000000000000000000',
+      topics: [Array]
+    },
+    args: Result { '0': [BN], __length__: 1, contract_id: [BN] }
+  },
+  {
+    address: '0xC0e817d3e3D79085175BCD83BD899A3d06BC1C8A',
+    blockHash: '0x76577e34926138a6a69bc799f31d1ad9c73fee11e090f9df3d925a2339c2bb1c',
+    blockNumber: 9475921,
+    logIndex: 6,
+    removed: false,
+    transactionHash: '0x5a5d1f48fab4683bf1b4bf4c5077c39034036512cbaa6911e8d2b0922e6af157',
+    transactionIndex: 9,
+    id: 'log_54854b5b',
+    returnValues: Result {
+      '0': '0',
+      '1': '0x3DA604B991B6B10ECa6febF140dcf80EE30dcc28',
+      '2': '0x49F8265902494e87c96579554B2d4BaC09f65D0B',
+      '3': '100000000000',
+      '4': '0x40355ee67396fabf16c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400',
+      contract_id: '0',
+      sender: '0x3DA604B991B6B10ECa6febF140dcf80EE30dcc28',
+      receiver: '0x49F8265902494e87c96579554B2d4BaC09f65D0B',
+      value: '100000000000',
+      invoice_hash: '0x40355ee67396fabf16c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400'
+    },
+    event: 'ContractTransaction',
+    signature: '0x686cef56cb3dd8464104249b6a9a506bdfdbe16947cf2abed183c0fc04b7e06b',
+    raw: {
+      data: '0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000003da604b991b6b10eca6febf140dcf80ee30dcc2800000000000000000000000049f8265902494e87c96579554b2d4bac09f65d0b000000000000000000000000000000000000000000000000000000174876e80000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000004140355ee67396fabf16c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be40000000000000000000000000000000000000000000000000000000000000000',
+      topics: [Array]
+    },
+    args: Result {
+      '0': [BN],
+      '1': '0x3DA604B991B6B10ECa6febF140dcf80EE30dcc28',
+      '2': '0x49F8265902494e87c96579554B2d4BaC09f65D0B',
+      '3': [BN],
+      '4': '0x40355ee67396fabf16c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400',
+      __length__: 5,
+      contract_id: [BN],
+      sender: '0x3DA604B991B6B10ECa6febF140dcf80EE30dcc28',
+      receiver: '0x49F8265902494e87c96579554B2d4BaC09f65D0B',
+      value: [BN],
+      invoice_hash: '0x40355ee67396fabf16c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400'
+    }
+  },
+  {
+    address: '0xC0e817d3e3D79085175BCD83BD899A3d06BC1C8A',
+    blockHash: '0x36ea4e9b9e041aed114e46ade0e034d20b87e9cf07a7b6d095a61bc82e929e2f',
+    blockNumber: 9475939,
+    logIndex: 18,
+    removed: false,
+    transactionHash: '0xfadf5cb09fc712d004eba3996b9a1e96a49e559876507b5904537d3e4f995a50',
+    transactionIndex: 45,
+    id: 'log_050217ef',
+    returnValues: Result { '0': '0', contract_id: '0' },
+    event: 'UnSignContract',
+    signature: '0x4ed1736e8b3a71cdddb1781af5df6e035ee65300fbc586a87b7552cf8d13f8c5',
+    raw: {
+      data: '0x0000000000000000000000000000000000000000000000000000000000000000',
+      topics: [Array]
+    },
+    args: Result { '0': [BN], __length__: 1, contract_id: [BN] }
+  },
+  {
+    address: '0xC0e817d3e3D79085175BCD83BD899A3d06BC1C8A',
+    blockHash: '0x5104f1e953f5179d82ed3be942387f65ca0edee6c74269bcfe29efacda5b52d1',
+    blockNumber: 9476214,
+    logIndex: 3,
+    removed: false,
+    transactionHash: '0x202aa3692aac05adda120cc98b08f0826990f72c7609d31696a2d41b1b309f1f',
+    transactionIndex: 5,
+    id: 'log_2eb2c4d2',
+    returnValues: Result { '0': '0', contract_id: '0' },
+    event: 'UnSignContract',
+    signature: '0x4ed1736e8b3a71cdddb1781af5df6e035ee65300fbc586a87b7552cf8d13f8c5',
+    raw: {
+      data: '0x0000000000000000000000000000000000000000000000000000000000000000',
+      topics: [Array]
+    },
+    args: Result { '0': [BN], __length__: 1, contract_id: [BN] }
+  },
+  {
+    address: '0xC0e817d3e3D79085175BCD83BD899A3d06BC1C8A',
+    blockHash: '0x5104f1e953f5179d82ed3be942387f65ca0edee6c74269bcfe29efacda5b52d1',
+    blockNumber: 9476214,
+    logIndex: 4,
+    removed: false,
+    transactionHash: '0x202aa3692aac05adda120cc98b08f0826990f72c7609d31696a2d41b1b309f1f',
+    transactionIndex: 5,
+    id: 'log_463d2e15',
+    returnValues: Result { '0': '0', contract_id: '0' },
+    event: 'DeActivateContract',
+    signature: '0xe37a70f22ab0dc09ba248440f9a99babf449ccad1acc64ff0657bce71e9b77bc',
+    raw: {
+      data: '0x0000000000000000000000000000000000000000000000000000000000000000',
+      topics: [Array]
+    },
+    args: Result { '0': [BN], __length__: 1, contract_id: [BN] }
+  }
+]
+

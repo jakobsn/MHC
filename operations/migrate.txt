@@ -1,0 +1,105 @@
+truffle migrate --network mainnet
+
+Compiling your contracts...
+===========================
+> Everything is up to date, there is nothing to compile.
+
+
+
+Migrations dry-run (simulation)
+===============================
+> Network name:    'mainnet-fork'
+> Network id:      1
+> Block gas limit: 0x986f6d
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > block number:        9475758
+   > block timestamp:     1581611288
+   > account:             0x486A578b8BA1aFE62f4e8FDb900B60c9d6192174
+   > balance:             0.188614616908036079
+   > gas used:            210225
+   > gas price:           2 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00042045 ETH
+
+
+   Deploying 'MinimumHybridContract'
+   ---------------------------------
+   > block number:        9475759
+   > block timestamp:     1581611295
+   > account:             0x486A578b8BA1aFE62f4e8FDb900B60c9d6192174
+   > balance:             0.185566448908036079
+   > gas used:            1524084
+   > gas price:           2 gwei
+   > value sent:          0 ETH
+   > total cost:          0.003048168 ETH
+
+   -------------------------------------
+   > Total cost:         0.003468618 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.003468618 ETH
+
+
+
+
+
+Starting migrations...
+======================
+> Network name:    'mainnet'
+> Network id:      1
+> Block gas limit: 0x989561
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > transaction hash:    0xd9a9e9d20f34194e8ae16844c0b5ea0727dce26ced0aaf61c976440bcab74685
+   > Blocks: 1            Seconds: 16
+   > contract address:    0x46345209A383897De4961Ace7EB91d5d80FC976d
+   > block number:        9475762
+   > block timestamp:     1581611316
+   > account:             0x486A578b8BA1aFE62f4e8FDb900B60c9d6192174
+   > balance:             0.184530566908036079
+   > gas used:            225225
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0045045 ETH
+
+
+   Deploying 'MinimumHybridContract'
+   ---------------------------------
+   > transaction hash:    0xace321221fe90e954a5463b290201e0c617dc342b38ffd5c899f18f6d56fa1b6
+   > Blocks: 2            Seconds: 32
+   > contract address:    0xC0e817d3e3D79085175BCD83BD899A3d06BC1C8A
+   > block number:        9475765
+   > block timestamp:     1581611353
+   > account:             0x486A578b8BA1aFE62f4e8FDb900B60c9d6192174
+   > balance:             0.154048886908036079
+   > gas used:            1524084
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.03048168 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.03498618 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.03498618 ETH
+

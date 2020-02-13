@@ -1,0 +1,16 @@
+con.read_contract(0)
+Result {
+  '0': '0x49F8265902494e87c96579554B2d4BaC09f65D0B',
+  '1': '0x3DA604B991B6B10ECa6febF140dcf80EE30dcc28',
+  '2': 'EASE2020-test',
+  '3': '0x30755ed65396facf86c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400',
+  '4': 'SHA256',
+  '5': true,
+  principal: '0x49F8265902494e87c96579554B2d4BaC09f65D0B',
+  agent: '0x3DA604B991B6B10ECa6febF140dcf80EE30dcc28',
+  title: 'EASE2020-test',
+  contract_hash: '0x30755ed65396facf86c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400',
+  contract_method: 'SHA256',
+  signed: true
+}
+
