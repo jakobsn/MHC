@@ -31,3 +31,13 @@ Contract Deployer: 0x486A578b8BA1aFE62f4e8FDb900B60c9d6192174
 Principal: 0x49F8265902494e87c96579554B2d4BaC09f65D0B
 
 Agent: 0x3DA604B991B6B10ECa6febF140dcf80EE30dcc28
+
+## Tools
+
+Truffle v5.1.11
+
+Solidity v0.5.16
+
+Node v13.7.0
+
+Web3.js v1.2.1
