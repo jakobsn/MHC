@@ -1,6 +1,7 @@
 # Minimum Hybrid Contract
 
 Smart Contract implementation for the Minimum Hybrid contract
+https://dl.acm.org/doi/abs/10.1145/3383219.3383275
 
 ## Models
 
